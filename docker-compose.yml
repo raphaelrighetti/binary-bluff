@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  mensagens-db:
+    image: mongo:latest
+    container_name: mensagens-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rapha
+      - MONGO_INITDB_ROOT_PASSWORD=abc@1234
+    networks:
+      - naonaoa-bridge
+    ports:
+      - 27017:27017
+
+  main-db:
+    image: postgres:latest
+    container_name: main-db
+    environment:
+      - POSTGRES_USER=rapha
+      - POSTGRES_PASSWORD=abc@1234
+    networks:
+      - naonaoa-bridge
+    ports:
+      - 5432:5432
+
+networks:
+  naonaoa-bridge:
+    driver: bridge
