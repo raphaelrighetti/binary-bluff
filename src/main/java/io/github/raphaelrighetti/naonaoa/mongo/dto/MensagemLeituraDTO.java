@@ -1,9 +1,9 @@
-package io.github.raphaelrighetti.naonaoa.dto;
+package io.github.raphaelrighetti.naonaoa.mongo.dto;
 
 import java.util.List;
 
-import io.github.raphaelrighetti.naonaoa.models.Mensagem;
-import io.github.raphaelrighetti.naonaoa.models.Resposta;
+import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
+import io.github.raphaelrighetti.naonaoa.mongo.models.Resposta;
 
 public record MensagemLeituraDTO(String id, String mensagem, List<Resposta> respostas) {
 	

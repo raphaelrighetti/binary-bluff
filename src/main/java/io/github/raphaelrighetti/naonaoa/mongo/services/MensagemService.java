@@ -1,14 +1,14 @@
-package io.github.raphaelrighetti.naonaoa.services;
+package io.github.raphaelrighetti.naonaoa.mongo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import io.github.raphaelrighetti.naonaoa.dto.MensagemCadastroDTO;
-import io.github.raphaelrighetti.naonaoa.dto.MensagemLeituraDTO;
-import io.github.raphaelrighetti.naonaoa.models.Mensagem;
-import io.github.raphaelrighetti.naonaoa.repositories.MensagemRepository;
+import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
+import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
+import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
+import io.github.raphaelrighetti.naonaoa.mongo.repositories.MensagemRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -39,10 +39,7 @@ public class MensagemService {
 	}
 	
 	public MensagemLeituraDTO obterDtoPorId(String id) {
-		Mensagem mensagem = repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException());
-		
-		return new MensagemLeituraDTO(mensagem);
+		return new MensagemLeituraDTO(obterPorId(id));
 	}
 	
 	public void deletar(String id) {

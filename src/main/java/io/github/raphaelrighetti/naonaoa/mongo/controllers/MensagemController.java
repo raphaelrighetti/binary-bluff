@@ -1,4 +1,4 @@
-package io.github.raphaelrighetti.naonaoa.controllers;
+package io.github.raphaelrighetti.naonaoa.mongo.controllers;
 
 import java.net.URI;
 
@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import io.github.raphaelrighetti.naonaoa.dto.MensagemCadastroDTO;
-import io.github.raphaelrighetti.naonaoa.dto.MensagemLeituraDTO;
-import io.github.raphaelrighetti.naonaoa.services.MensagemService;
+import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
+import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
+import io.github.raphaelrighetti.naonaoa.mongo.services.MensagemService;
 import jakarta.validation.Valid;
 
 @RestController

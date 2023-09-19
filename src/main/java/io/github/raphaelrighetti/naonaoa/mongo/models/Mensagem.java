@@ -1,4 +1,4 @@
-package io.github.raphaelrighetti.naonaoa.models;
+package io.github.raphaelrighetti.naonaoa.mongo.models;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import io.github.raphaelrighetti.naonaoa.dto.MensagemCadastroDTO;
+import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
