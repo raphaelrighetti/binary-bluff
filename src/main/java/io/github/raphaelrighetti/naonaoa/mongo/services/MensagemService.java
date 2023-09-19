@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
+import io.github.raphaelrighetti.naonaoa.mongo.models.Resposta;
 import io.github.raphaelrighetti.naonaoa.mongo.repositories.MensagemRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -25,8 +26,8 @@ public class MensagemService {
 	}
 	
 	public Page<MensagemLeituraDTO> listar(Pageable pageable) {
-		Page<MensagemLeituraDTO> page = repository.findAll(pageable)
-				.map(msg -> new MensagemLeituraDTO(msg));
+		Page<MensagemLeituraDTO> page = 
+				repository.findAll(pageable).map(MensagemLeituraDTO::new);
 		
 		return page;
 	}
@@ -40,6 +41,12 @@ public class MensagemService {
 	
 	public MensagemLeituraDTO obterDtoPorId(String id) {
 		return new MensagemLeituraDTO(obterPorId(id));
+	}
+	
+	public void adicionarResposta(Mensagem mensagem, Resposta resposta) {
+		mensagem.getRespostas().add(resposta);
+		
+		repository.save(mensagem);
 	}
 	
 	public void deletar(String id) {

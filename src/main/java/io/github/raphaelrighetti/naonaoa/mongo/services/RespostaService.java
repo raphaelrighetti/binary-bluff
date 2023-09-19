@@ -28,13 +28,14 @@ public class RespostaService {
 		resposta.setMensagem(mensagem);
 		
 		repository.save(resposta);
+		mensagemService.adicionarResposta(mensagem, resposta);
 		
 		return new RespostaLeituraDTO(resposta);
 	}
 	
 	public Page<RespostaLeituraDTO> listar(Pageable pageable) {
 		Page<RespostaLeituraDTO> page = 
-				repository.findAll(pageable).map(resposta -> new RespostaLeituraDTO(resposta));
+				repository.findAll(pageable).map(RespostaLeituraDTO::new);
 		
 		return page;
 	}
