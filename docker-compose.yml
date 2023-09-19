@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   mensagens-db:
-    image: mongo:latest
+    build: ./mongo
     container_name: mensagens-db
     environment:
       - MONGO_INITDB_DATABASE=naonaoa
@@ -17,7 +17,7 @@ services:
     image: postgres:latest
     container_name: main-db
     environment:
-      - POSTGRES_DB:naonaoa
+      - POSTGRES_DB=naonaoa
       - POSTGRES_USER=rapha
       - POSTGRES_PASSWORD=abc@1234
     networks:
