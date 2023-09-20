@@ -25,8 +25,8 @@ public class RespostaService {
 	public RespostaLeituraDTO cadastrar(RespostaCadastroDTO dto) {
 		Mensagem mensagem = mensagemService.obterPorId(dto.mensagemId());
 		Resposta resposta = new Resposta(dto);
-		resposta.setMensagem(mensagem);
 		
+		resposta.getMensagens().add(mensagem);
 		repository.save(resposta);
 		mensagemService.adicionarResposta(mensagem, resposta);
 		

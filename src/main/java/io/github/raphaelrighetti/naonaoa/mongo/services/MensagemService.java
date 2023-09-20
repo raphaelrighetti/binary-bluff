@@ -45,6 +45,7 @@ public class MensagemService {
 	
 	public void adicionarResposta(Mensagem mensagem, Resposta resposta) {
 		mensagem.getRespostas().add(resposta);
+		mensagem.setRespondida(true);
 		
 		repository.save(mensagem);
 	}

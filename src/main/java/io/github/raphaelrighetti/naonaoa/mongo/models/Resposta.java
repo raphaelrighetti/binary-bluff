@@ -1,5 +1,8 @@
 package io.github.raphaelrighetti.naonaoa.mongo.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -19,13 +22,21 @@ public class Resposta {
 	@Id
 	private String id;
 	private String resposta;
-	@DocumentReference(lazy = true)
-	private Mensagem mensagem;
+	@DocumentReference
+	private List<Mensagem> mensagens;
 	private Long usuarioId;
 	
 	public Resposta(RespostaCadastroDTO dto) {
 		resposta = dto.resposta();
 		usuarioId = dto.usuarioId();
+	}
+	
+	public List<Mensagem> getMensagens() {
+		if (mensagens == null) {
+			return new ArrayList<>();
+		}
+		
+		return mensagens;
 	}
 	
 	public void atualizar(RespostaAtualizacaoDTO dto) {
