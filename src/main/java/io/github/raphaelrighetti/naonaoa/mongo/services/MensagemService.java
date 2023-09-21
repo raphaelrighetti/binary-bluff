@@ -10,13 +10,21 @@ import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
 import io.github.raphaelrighetti.naonaoa.mongo.models.Resposta;
 import io.github.raphaelrighetti.naonaoa.mongo.repositories.MensagemRepository;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class MensagemService {
 	
 	@Autowired
 	private MensagemRepository repository;
+	
+	@Autowired
+	private MensagemObterService mensagemObterService;
+	
+	@Autowired
+	private MensagemAdicionarRespostaService adicionarRespostaService;
+	
+	@Autowired
+	private RespostaObterService respostaObterService;
 	
 	public MensagemLeituraDTO cadastrar(MensagemCadastroDTO dto) {
 		Mensagem mensagem = new Mensagem(dto);
@@ -33,21 +41,18 @@ public class MensagemService {
 	}
 	
 	public Mensagem obterPorId(String id) {
-		Mensagem mensagem = repository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException());
-		
-		return mensagem;
+		return mensagemObterService.obterPorId(id);
 	}
 	
 	public MensagemLeituraDTO obterDtoPorId(String id) {
 		return new MensagemLeituraDTO(obterPorId(id));
 	}
 	
-	public void adicionarResposta(Mensagem mensagem, Resposta resposta) {
-		mensagem.getRespostas().add(resposta);
-		mensagem.setRespondida(true);
+	public void adicionarResposta(String mensagemId, String respostaId) {
+		Mensagem mensagem = mensagemObterService.obterPorId(mensagemId);
+		Resposta resposta = respostaObterService.obterPorId(respostaId);
 		
-		repository.save(mensagem);
+		adicionarRespostaService.adicionarResposta(mensagem, resposta);
 	}
 	
 	public void deletar(String id) {
