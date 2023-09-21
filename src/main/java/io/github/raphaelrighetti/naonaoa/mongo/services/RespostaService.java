@@ -1,5 +1,7 @@
 package io.github.raphaelrighetti.naonaoa.mongo.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,8 +28,8 @@ public class RespostaService {
 		Mensagem mensagem = mensagemService.obterPorId(dto.mensagemId());
 		Resposta resposta = new Resposta(dto);
 		
-		resposta.getMensagens().add(mensagem);
 		repository.save(resposta);
+		adicionarMensagem(resposta, mensagem);
 		mensagemService.adicionarResposta(mensagem, resposta);
 		
 		return new RespostaLeituraDTO(resposta);
@@ -49,6 +51,20 @@ public class RespostaService {
 	
 	public RespostaLeituraDTO obterDtoPorId(String id) {
 		return new RespostaLeituraDTO(obterPorId(id));
+	}
+	
+	public void adicionarMensagem(Resposta resposta, Mensagem mensagem) {
+		if (resposta.getMensagens().isEmpty()) {
+			resposta.setMensagens(List.of(mensagem));
+			
+			repository.save(resposta);
+			
+			return;
+		}
+		
+		resposta.getMensagens().add(mensagem);
+		
+		repository.save(resposta);
 	}
 	
 	public void atualizar(String id, RespostaAtualizacaoDTO dto) {
