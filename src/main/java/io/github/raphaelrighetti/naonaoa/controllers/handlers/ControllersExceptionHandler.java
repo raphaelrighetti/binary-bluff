@@ -2,20 +2,22 @@ package io.github.raphaelrighetti.naonaoa.controllers.handlers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import jakarta.persistence.EntityNotFoundException;
+import io.github.raphaelrighetti.naonaoa.exceptions.EntidadeNaoEncontradaException;
 
 @RestControllerAdvice
 public class ControllersExceptionHandler {
 
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<Void> entityNotFoundException() {
-		return ResponseEntity.notFound().build();
+	@ExceptionHandler(EntidadeNaoEncontradaException.class)
+	public ResponseEntity<ErroGenericoDTO> entidadeNaoEncontradaException(EntidadeNaoEncontradaException ex) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ErroGenericoDTO(ex.getMessage()));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
@@ -31,6 +33,10 @@ public class ControllersExceptionHandler {
 		public FieldErrorDTO(FieldError error) {
 			this(error.getField(), error.getDefaultMessage());
 		}
+		
+	}
+	
+	private record ErroGenericoDTO(String mensagem) {
 		
 	}
 	

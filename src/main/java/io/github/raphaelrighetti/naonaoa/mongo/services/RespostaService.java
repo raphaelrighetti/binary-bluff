@@ -22,20 +22,16 @@ public class RespostaService {
 	private RespostaObterService respostaObterService;
 	
 	@Autowired
-	private RespostaAdicionarMensagemService adicionarMensagemService;
-	
-	@Autowired
 	private MensagemObterService mensagemObterService;
 	
 	@Autowired
-	private MensagemAdicionarRespostaService adicionarRespostaService;
+	private AdicionarRespostaService adicionarRespostaService;
 	
 	public RespostaLeituraDTO cadastrar(RespostaCadastroDTO dto) {
 		Mensagem mensagem = mensagemObterService.obterPorId(dto.mensagemId());
 		Resposta resposta = new Resposta(dto);
 		
 		repository.save(resposta);
-		adicionarMensagemService.adicionarMensagem(resposta, mensagem);
 		adicionarRespostaService.adicionarResposta(mensagem, resposta);
 		
 		return new RespostaLeituraDTO(resposta);
@@ -54,13 +50,6 @@ public class RespostaService {
 	
 	public RespostaLeituraDTO obterDtoPorId(String id) {
 		return new RespostaLeituraDTO(obterPorId(id));
-	}
-	
-	public void adicionarMensagem(String respostaId, String mensagemId) {
-		Resposta resposta = respostaObterService.obterPorId(respostaId);
-		Mensagem mensagem = mensagemObterService.obterPorId(mensagemId);
-		
-		adicionarMensagemService.adicionarMensagem(resposta, mensagem);
 	}
 	
 	public void atualizar(String id, RespostaAtualizacaoDTO dto) {

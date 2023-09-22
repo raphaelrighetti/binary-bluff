@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import io.github.raphaelrighetti.naonaoa.mongo.dto.RespostaAdicionarMensagemDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.RespostaAtualizacaoDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.RespostaCadastroDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.RespostaLeituraDTO;
@@ -51,14 +50,6 @@ public class RespostaController {
 		RespostaLeituraDTO responseDTO = respostaService.obterDtoPorId(id);
 		
 		return ResponseEntity.ok(responseDTO);
-	}
-	
-	@PutMapping("/{id}/adicionar-mensagem")
-	public ResponseEntity<Void> adicionarMensagem(@PathVariable String id, 
-			@RequestBody @Valid RespostaAdicionarMensagemDTO dto) {
-		respostaService.adicionarMensagem(id, dto.mensagemId());
-		
-		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping("/{id}")

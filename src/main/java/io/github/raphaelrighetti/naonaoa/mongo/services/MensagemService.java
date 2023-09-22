@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import io.github.raphaelrighetti.naonaoa.exceptions.EntidadeNaoEncontradaException;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
@@ -21,12 +22,20 @@ public class MensagemService {
 	private MensagemObterService mensagemObterService;
 	
 	@Autowired
-	private MensagemAdicionarRespostaService adicionarRespostaService;
+	private AdicionarRespostaService adicionarRespostaService;
 	
 	@Autowired
 	private RespostaObterService respostaObterService;
 	
 	public MensagemLeituraDTO cadastrar(MensagemCadastroDTO dto) {
+		try {
+			Mensagem cadastrada = mensagemObterService.obterPorMensagem(dto.mensagem());
+			
+			return new MensagemLeituraDTO(cadastrada);
+		} catch (EntidadeNaoEncontradaException ex) {
+			
+		}
+		
 		Mensagem mensagem = new Mensagem(dto);
 		repository.save(mensagem);
 		
@@ -46,6 +55,14 @@ public class MensagemService {
 	
 	public MensagemLeituraDTO obterDtoPorId(String id) {
 		return new MensagemLeituraDTO(obterPorId(id));
+	}
+	
+	public Mensagem obterPorMensagem(String mensagem) {
+		return mensagemObterService.obterPorMensagem(mensagem);
+	}
+	
+	public MensagemLeituraDTO obterDtoPorMensagem(String mensagem) {
+		return new MensagemLeituraDTO(obterPorMensagem(mensagem));
 	}
 	
 	public void adicionarResposta(String mensagemId, String respostaId) {
