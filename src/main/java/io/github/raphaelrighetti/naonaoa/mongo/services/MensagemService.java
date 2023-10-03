@@ -5,11 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import io.github.raphaelrighetti.naonaoa.exceptions.EntidadeNaoEncontradaException;
+import io.github.raphaelrighetti.naonaoa.exceptions.ArgumentoInvalidoException;
+import io.github.raphaelrighetti.naonaoa.exceptions.MensagemNaoEncontradaException;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemCadastroDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.dto.MensagemLeituraDTO;
 import io.github.raphaelrighetti.naonaoa.mongo.models.Mensagem;
-import io.github.raphaelrighetti.naonaoa.mongo.models.Resposta;
 import io.github.raphaelrighetti.naonaoa.mongo.repositories.MensagemRepository;
 
 @Service
@@ -24,16 +24,12 @@ public class MensagemService {
 	@Autowired
 	private AdicionarRespostaService adicionarRespostaService;
 	
-	@Autowired
-	private RespostaObterService respostaObterService;
-	
 	public MensagemLeituraDTO cadastrar(MensagemCadastroDTO dto) {
 		try {
 			Mensagem cadastrada = mensagemObterService.obterPorMensagem(dto.mensagem());
 			
 			return new MensagemLeituraDTO(cadastrada);
-		} catch (EntidadeNaoEncontradaException ex) {
-			
+		} catch (MensagemNaoEncontradaException ex) {
 		}
 		
 		Mensagem mensagem = new Mensagem(dto);
@@ -66,8 +62,12 @@ public class MensagemService {
 	}
 	
 	public void adicionarResposta(String mensagemId, String respostaId) {
+		if (mensagemId.equals(respostaId)) {
+			throw new ArgumentoInvalidoException("Uma mensagem não pode ser resposta dela mesma!");
+		}
+		
 		Mensagem mensagem = mensagemObterService.obterPorId(mensagemId);
-		Resposta resposta = respostaObterService.obterPorId(respostaId);
+		Mensagem resposta = mensagemObterService.obterPorId(respostaId);
 		
 		adicionarRespostaService.adicionarResposta(mensagem, resposta);
 	}

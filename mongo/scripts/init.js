@@ -5,4 +5,3 @@ db.createUser({
 });
 
 db.createCollection('mensagens', { capped: false });
-db.createCollection('respostas', { capped: false });

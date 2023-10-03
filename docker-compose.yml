@@ -4,10 +4,7 @@ services:
   mensagens-db:
     build: ./mongo
     container_name: mensagens-db
-    environment:
-      - MONGO_INITDB_DATABASE=naonaoa
-      - MONGO_INITDB_ROOT_USERNAME=rapha
-      - MONGO_INITDB_ROOT_PASSWORD=abc@1234
+    env_file: ./env/mongo.env
     networks:
       - naonaoa-bridge
     ports:
@@ -16,10 +13,7 @@ services:
   main-db:
     image: postgres:latest
     container_name: main-db
-    environment:
-      - POSTGRES_DB=naonaoa
-      - POSTGRES_USER=rapha
-      - POSTGRES_PASSWORD=abc@1234
+    env_file: ./env/postgres.env
     networks:
       - naonaoa-bridge
     ports:

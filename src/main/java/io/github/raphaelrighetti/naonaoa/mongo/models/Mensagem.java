@@ -22,19 +22,19 @@ public class Mensagem {
 	private String id;
 	private String mensagem;
 	@DocumentReference
-	private List<Resposta> respostas;
+	private List<Mensagem> respostas;
 	private Boolean respondida = false;
 	
 	public Mensagem(MensagemCadastroDTO dto) {
 		mensagem = dto.mensagem().toLowerCase();
 	}
 	
-	public List<Resposta> getRespostas() {
+	public List<Mensagem> getRespostas() {
 		if (respostas == null) {
 			return new ArrayList<>();
 		}
 		
 		return respostas;
 	}
-
+	
 }

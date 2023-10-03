@@ -9,14 +9,25 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import io.github.raphaelrighetti.naonaoa.exceptions.EntidadeNaoEncontradaException;
+import io.github.raphaelrighetti.naonaoa.exceptions.ArgumentoInvalidoException;
+import io.github.raphaelrighetti.naonaoa.exceptions.MensagemNaoEncontradaException;
 
 @RestControllerAdvice
 public class ControllersExceptionHandler {
 
-	@ExceptionHandler(EntidadeNaoEncontradaException.class)
-	public ResponseEntity<ErroGenericoDTO> entidadeNaoEncontradaException(EntidadeNaoEncontradaException ex) {
+	@ExceptionHandler(MensagemNaoEncontradaException.class)
+	public ResponseEntity<ErroGenericoDTO> mensagemNaoEncontradaException(MensagemNaoEncontradaException ex) {
+		if (ex.getMessage() == null || ex.getMessage().isBlank()) {
+			return ResponseEntity.notFound().build();
+		}
+		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
+				.body(new ErroGenericoDTO(ex.getMessage()));
+	}
+	
+	@ExceptionHandler(ArgumentoInvalidoException.class)
+	public ResponseEntity<ErroGenericoDTO> argumentoInvalidoException(ArgumentoInvalidoException ex) {
+		return ResponseEntity.badRequest()
 				.body(new ErroGenericoDTO(ex.getMessage()));
 	}
 	
