@@ -1,29 +1,17 @@
-package io.github.raphaelrighetti.naonaoa.controllers.handlers;
+package com.raphaelrighetti.binarybluff.controllers.handlers;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import io.github.raphaelrighetti.naonaoa.exceptions.ArgumentoInvalidoException;
-import io.github.raphaelrighetti.naonaoa.exceptions.MensagemNaoEncontradaException;
+import com.raphaelrighetti.binarybluff.exceptions.ArgumentoInvalidoException;
 
 @RestControllerAdvice
 public class ControllersExceptionHandler {
-
-	@ExceptionHandler(MensagemNaoEncontradaException.class)
-	public ResponseEntity<ErroGenericoDTO> mensagemNaoEncontradaException(MensagemNaoEncontradaException ex) {
-		if (ex.getMessage() == null || ex.getMessage().isBlank()) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		return ResponseEntity.status(HttpStatus.NOT_FOUND)
-				.body(new ErroGenericoDTO(ex.getMessage()));
-	}
 	
 	@ExceptionHandler(ArgumentoInvalidoException.class)
 	public ResponseEntity<ErroGenericoDTO> argumentoInvalidoException(ArgumentoInvalidoException ex) {

@@ -1,13 +1,13 @@
-package io.github.raphaelrighetti.naonaoa;
+package com.raphaelrighetti.binarybluff;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NaonaoaApplication {
+public class BinaryBluffApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NaonaoaApplication.class, args);
+		SpringApplication.run(BinaryBluffApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package io.github.raphaelrighetti.naonaoa.exceptions;
+package com.raphaelrighetti.binarybluff.exceptions;
 
 public class ArgumentoInvalidoException extends RuntimeException {
 
