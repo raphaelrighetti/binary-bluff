@@ -1,0 +1,3 @@
+[submodule "mensagens"]
+	path = mensagens
+	url = git@github.com:raphaelrighetti/binary-bluff-mensagens.git

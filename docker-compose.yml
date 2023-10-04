@@ -1,6 +1,17 @@
 version: '3.9'
 
 services:
+  mensagens:
+    build: ./mensagens
+    container_name: mensagens
+    env_file: ./env/mensagens.env
+    networks:
+      - naonaoa-bridge
+    ports:
+      - 8081:8081
+    depends_on:
+      - mensagens-db
+
   mensagens-db:
     build: ./mongo
     container_name: mensagens-db
