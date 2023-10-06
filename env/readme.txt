@@ -1,0 +1,1 @@
+Crie arquivos ".env" com os mesmos nomes que os ".example" e com os valores corretos para o "docker compose up" funcionar corretamente.

@@ -13,7 +13,7 @@ services:
       - mensagens-db
 
   mensagens-db:
-    build: ./mongo
+    build: ./mensagens/mongo
     container_name: mensagens-db
     env_file: ./env/mongo.env
     networks:
