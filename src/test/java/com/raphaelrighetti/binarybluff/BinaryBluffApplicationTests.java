@@ -1,10 +1,10 @@
-package io.github.raphaelrighetti.naonaoa;
+package com.raphaelrighetti.binarybluff;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NaonaoaApplicationTests {
+class BinaryBluffApplicationTests {
 
 	@Test
 	void contextLoads() {
