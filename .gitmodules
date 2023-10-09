@@ -1,3 +1,6 @@
 [submodule "mensagens"]
 	path = mensagens
 	url = git@github.com:raphaelrighetti/binary-bluff-mensagens.git
+[submodule "gateway"]
+	path = gateway
+	url = git@github.com:raphaelrighetti/binary-bluff-gateway.git
