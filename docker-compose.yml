@@ -47,6 +47,19 @@ services:
       binarybluff:
         condition: service_healthy
 
+  chat:
+    build: ./chat
+    container_name: chat
+    env_file:
+      - ./env/chat.env
+      - ./env/binarybluff.env
+    networks:
+      - binarybluff-bridge
+    restart: unless-stopped
+    depends_on:
+      binarybluff:
+        condition: service_healthy
+
   mensagens-db:
     build: ./mensagens/mongo
     container_name: mensagens-db
