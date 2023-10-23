@@ -4,3 +4,6 @@
 [submodule "gateway"]
 	path = gateway
 	url = git@github.com:raphaelrighetti/binary-bluff-gateway.git
+[submodule "chat"]
+	path = chat
+	url = git@github.com:raphaelrighetti/binary-bluff-chat.git
